@@ -1,13 +1,24 @@
 {
   "files": {
-    "main.css": "/goit-react-hw-08-phonebook/static/css/main.7acaea2f.css",
-    "main.js": "/goit-react-hw-08-phonebook/static/js/main.07d3183d.js",
+    "main.css": "/goit-react-hw-08-phonebook/static/css/main.51e8faa7.css",
+    "main.js": "/goit-react-hw-08-phonebook/static/js/main.9f4a6a9d.js",
+    "static/js/931.ea893ab2.chunk.js": "/goit-react-hw-08-phonebook/static/js/931.ea893ab2.chunk.js",
+    "static/js/427.d58ef990.chunk.js": "/goit-react-hw-08-phonebook/static/js/427.d58ef990.chunk.js",
+    "static/js/284.6dc94aa6.chunk.js": "/goit-react-hw-08-phonebook/static/js/284.6dc94aa6.chunk.js",
+    "static/js/837.7aaf9640.chunk.js": "/goit-react-hw-08-phonebook/static/js/837.7aaf9640.chunk.js",
+    "static/js/270.df7059eb.chunk.js": "/goit-react-hw-08-phonebook/static/js/270.df7059eb.chunk.js",
+    "static/media/phone.jpg": "/goit-react-hw-08-phonebook/static/media/phone.fe7518a115a4a8a2f4a2.jpg",
     "index.html": "/goit-react-hw-08-phonebook/index.html",
-    "main.7acaea2f.css.map": "/goit-react-hw-08-phonebook/static/css/main.7acaea2f.css.map",
-    "main.07d3183d.js.map": "/goit-react-hw-08-phonebook/static/js/main.07d3183d.js.map"
+    "main.51e8faa7.css.map": "/goit-react-hw-08-phonebook/static/css/main.51e8faa7.css.map",
+    "main.9f4a6a9d.js.map": "/goit-react-hw-08-phonebook/static/js/main.9f4a6a9d.js.map",
+    "931.ea893ab2.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/931.ea893ab2.chunk.js.map",
+    "427.d58ef990.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/427.d58ef990.chunk.js.map",
+    "284.6dc94aa6.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/284.6dc94aa6.chunk.js.map",
+    "837.7aaf9640.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/837.7aaf9640.chunk.js.map",
+    "270.df7059eb.chunk.js.map": "/goit-react-hw-08-phonebook/static/js/270.df7059eb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
-    "static/js/main.07d3183d.js"
+    "static/css/main.51e8faa7.css",
+    "static/js/main.9f4a6a9d.js"
   ]
 }
