@@ -1,8 +1,6 @@
-// Redux's useDispatch hook
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// Operation for registering a user
 import { register } from 'redux/auth/operations';
-// Styled components for the RegisterForm component
 import {
   RegisterFormStyled,
   RegisterFormLabelStyled,
@@ -11,43 +9,48 @@ import {
 } from './RegisterForm.styled';
 
 export const RegisterForm = () => {
-  // Redux's useDispatch hook
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // handleSubmit function
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const form = event.currentTarget;
+    setError('');
+    setIsSubmitting(true);
 
-    // Dispatch the register operation with the name, email, and password values
-    dispatch(
-      register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-
-    // Form reset
-    form.reset();
+    try {
+      await dispatch(
+        register({
+          name: form.elements.name.value.trim(),
+          email: form.elements.email.value.trim(),
+          password: form.elements.password.value,
+        })
+      ).unwrap();
+    } catch (message) {
+      setError(typeof message === 'string' ? message : 'Something went wrong. Try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <RegisterFormStyled onSubmit={handleSubmit} autoComplete="off">
+    <RegisterFormStyled onSubmit={handleSubmit} aria-busy={isSubmitting}>
       <RegisterFormLabelStyled>
         Username
-        <RegisterFormInputStyled type="text" name="name" />
+        <RegisterFormInputStyled type="text" name="name" autoComplete="name" required />
       </RegisterFormLabelStyled>
       <RegisterFormLabelStyled>
         Email
-        <RegisterFormInputStyled type="email" name="email" />
+        <RegisterFormInputStyled type="email" name="email" autoComplete="email" required />
       </RegisterFormLabelStyled>
       <RegisterFormLabelStyled>
         Password
-        <RegisterFormInputStyled type="password" name="password" />
+        <RegisterFormInputStyled type="password" name="password" autoComplete="new-password" required />
       </RegisterFormLabelStyled>
-      <RegisterFormButtonStyled type="submit">
-        Register
+      {error && <p role="alert" style={{ color: '#f5fc69' }}>{error}</p>}
+      <RegisterFormButtonStyled type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Registering...' : 'Register'}
       </RegisterFormButtonStyled>
     </RegisterFormStyled>
   );

@@ -13,6 +13,25 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
+const authErrorMessage = (error, invalidInputMessage) => {
+  if (!error.response) {
+    return 'Could not reach the Phonebook service. Try again in a moment.';
+  }
+
+  switch (error.response.status) {
+    case 400:
+    case 401:
+    case 403:
+    case 409:
+    case 422:
+      return invalidInputMessage;
+    case 429:
+      return 'Too many attempts. Wait a moment and try again.';
+    default:
+      return 'The Phonebook service returned an error. Try again later.';
+  }
+};
+
 // POST @ /users/signup
 // body: { name, email, password }
 export const register = createAsyncThunk(
@@ -24,7 +43,9 @@ export const register = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        authErrorMessage(error, 'Check your registration details or log in if you already have an account.')
+      );
     }
   }
 );
@@ -40,7 +61,9 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        authErrorMessage(error, 'Login failed. Check your email and password. If this is your first time on the new service, use Register.')
+      );
     }
   }
 );
