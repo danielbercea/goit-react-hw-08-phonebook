@@ -22,7 +22,8 @@ import { filterReducer } from './filter/filterSlice';
 
 // Configuration object for persisting the 'auth' slice of the Redux store
 const authPersistConfig = {
-  key: 'auth',
+  // Tokens issued by the previous API host must not be sent to this host.
+  key: 'auth-goit-global',
   storage,
   whitelist: ['token'],
 };
