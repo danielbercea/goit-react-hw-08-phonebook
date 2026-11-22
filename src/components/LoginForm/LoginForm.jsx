@@ -1,8 +1,6 @@
-// Redux's useDispatch hook
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// Operation for logging in
 import { logIn } from 'redux/auth/operations';
-// Styled components for the LoginForm component
 import {
   LoginFormStyled,
   LoginFormLabelStyled,
@@ -11,37 +9,44 @@ import {
 } from './LoginForm.styled';
 
 export const LoginForm = () => {
-  // Redux's useDispatch hook
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // handleSubmit function
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const form = event.currentTarget;
+    setError('');
+    setIsSubmitting(true);
 
-    // Dispatch the logIn operation with the email and password values
-    dispatch(
-      logIn({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-
-    // Form reset
-    form.reset();
+    try {
+      await dispatch(
+        logIn({
+          email: form.elements.email.value.trim(),
+          password: form.elements.password.value,
+        })
+      ).unwrap();
+    } catch (message) {
+      setError(typeof message === 'string' ? message : 'Something went wrong. Try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <LoginFormStyled onSubmit={handleSubmit} autoComplete="off">
+    <LoginFormStyled onSubmit={handleSubmit} aria-busy={isSubmitting}>
       <LoginFormLabelStyled>
         Email
-        <LoginFormInputStyled type="email" name="email" />
+        <LoginFormInputStyled type="email" name="email" autoComplete="email" required />
       </LoginFormLabelStyled>
       <LoginFormLabelStyled>
         Password
-        <LoginFormInputStyled type="password" name="password" />
+        <LoginFormInputStyled type="password" name="password" autoComplete="current-password" required />
       </LoginFormLabelStyled>
-      <LoginFormButtonStyled type="submit">Log In</LoginFormButtonStyled>
+      {error && <p role="alert" style={{ color: '#f5fc69' }}>{error}</p>}
+      <LoginFormButtonStyled type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Logging in...' : 'Log In'}
+      </LoginFormButtonStyled>
     </LoginFormStyled>
   );
 };
